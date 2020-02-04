@@ -137,6 +137,13 @@ bool BLEClient::connect(BLEAddress address, esp_ble_addr_type_t type) {
 	return rc == ESP_GATT_OK;
 } // connect
 
+/**
+ * @brief Release the OpenEvt semaphore with value 1. This is useful in the event that a device dissappears during a connection event.
+ * @return N/A.
+ */
+void BLEClient::releaseOpenEvt(){
+	m_semaphoreOpenEvt.give(1);
+} // releaseOpenEvt
 
 /**
  * @brief Disconnect from the peer.
